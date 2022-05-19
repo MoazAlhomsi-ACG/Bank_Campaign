@@ -29,8 +29,7 @@ def run_ML_model():
 	st.header('ML Models Prediction')
 	subb = st.sidebar.selectbox('Models',[
 										  'Logistic Regression',
-										  'Multi-layer Perceptron classifier',
-										  'Gradient Boosting Clasifier'])
+										  'Multi-layer Perceptron classifier' ])
 
 	if subb == 'Logistic Regression':
 		with st.expander('Logistic Regression Model prediction'):
