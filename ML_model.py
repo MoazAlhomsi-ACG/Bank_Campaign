@@ -82,26 +82,4 @@ def run_ML_model():
 			st.pyplot()
 
 
-	if subb == 'Gradient Boosting Clasifier':
-		with st.expander('Gradient Boosting Clasifier Model prediction'):
-			model = load_model('model/GradientBoosting.pkl')
 
-			pred=model.predict(x_train)
-			pred_prob=model.predict_proba(x_train)
-			score = roc_auc_score(y_train,pred_prob[:,1])
-			st.markdown("The roc_auc score for the Train set is : {:.2%}".format(score))
-
-			pred=model.predict(x_test)
-			pred_prob=model.predict_proba(x_test)
-			score = roc_auc_score(y_test,pred_prob[:,1])
-			st.markdown("The roc_auc score for the Test set is : {:.2%}".format(score))
-
-			st.write("_______________________________________________________________")
-			st.write('Classification Report')
-			st.text('______________________')
-			st.text(classification_report(y_test,pred))
-			st.write("_______________________________________________________________")			
-			fig = plt.figure()
-			plot_roc_curve(model,x_test,y_test)
-			plt.title('ROC-AUC Curve')
-			st.pyplot()
