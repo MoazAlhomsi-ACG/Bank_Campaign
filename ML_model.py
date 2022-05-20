@@ -29,7 +29,8 @@ def run_ML_model():
 	st.header('ML Models Prediction')
 	subb = st.sidebar.selectbox('Models',[
 										  'Logistic Regression',
-										  'Multi-layer Perceptron classifier' ])
+										  'Multi-layer Perceptron classifier',
+										  'Random Forest' ])
 
 	if subb == 'Logistic Regression':
 		with st.expander('Logistic Regression Model prediction'):
@@ -80,5 +81,33 @@ def run_ML_model():
 			plt.title('ROC-AUC Curve')
 			st.pyplot()
 
+		if subb == 'Random Forest':
+		with st.expander('Random Forest Clasifier Model prediction'):
+			model = load_model('model/RandomForest.pkl')
 
+			pred=model.predict(x_train)
+			pred_prob=model.predict_proba(x_train)
+			score = roc_auc_score(y_train,pred_prob[:,1])
+			st.markdown("The roc_auc score for the Train set is : {:.2%}".format(score))
+
+			pred=model.predict(x_test)
+			pred_prob=model.predict_proba(x_test)
+			score = roc_auc_score(y_test,pred_prob[:,1])
+			st.markdown("The roc_auc score for the Test set is : {:.2%}".format(score))
+
+			st.write("_______________________________________________________________")
+			st.write('Classification Report')
+			st.text('______________________')
+			st.text(classification_report(y_test,pred))
+			st.write("_______________________________________________________________")			
+			fig = plt.figure()
+			plot_roc_curve(model,x_test,y_test)
+			plt.title('ROC Curve')
+			st.pyplot()
+
+			imp = pd.Series(model.feature_importances_,
+                index = x_test.columns)
+			imp.nlargest(8).plot(kind='barh')
+			plt.title('Feature Importance')
+			st.pyplot()		
 
