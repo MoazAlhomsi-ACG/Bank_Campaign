@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-@st.cache()
+@st.cache(allow_output_mutation=True)
 def load_model(model_file):
 	loaded_model = joblib.load(open(os.path.join(model_file),"rb"))
 	return loaded_model
@@ -29,7 +29,7 @@ def run_ML_model():
 	st.header('ML Models Prediction')
 	subb = st.sidebar.selectbox('Models',[
 										  'Logistic Regression',
-										  'Multi-layer Perceptron classifier',
+										  'Multi_layer Perceptron classifier',
 										  'Random Forest' ])
 
 	if subb == 'Logistic Regression':
@@ -57,8 +57,8 @@ def run_ML_model():
 			st.pyplot()
 
 
-	if subb == 'Multi-layer Perceptron classifier':
-		with st.expander('Multi-layer Perceptron classifier Model prediction'):
+	if subb == 'Multi_layer Perceptron classifier':
+		with st.expander('Multi_layer Perceptron classifier Model prediction'):
 			model = load_model('model/MLPClassifier.pkl')
 
 			pred=model.predict(x_train)
