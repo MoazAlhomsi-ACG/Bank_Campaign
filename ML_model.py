@@ -81,7 +81,7 @@ def run_ML_model():
 			plt.title('ROC-AUC Curve')
 			st.pyplot()
 
-		if subb == 'Random Forest':
+	if subb == 'Random Forest':
 		with st.expander('Random Forest Clasifier Model prediction'):
 			model = load_model('model/RandomForest.pkl')
 
