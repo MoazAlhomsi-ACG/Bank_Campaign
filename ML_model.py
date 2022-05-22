@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-@st.cache(allow_output_mutation=True)
+@st.cache
 def load_model(model_file):
 	loaded_model = joblib.load(open(os.path.join(model_file),"rb"))
 	return loaded_model
